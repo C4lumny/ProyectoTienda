@@ -1,7 +1,8 @@
 package Modelo;
 
+import java.io.*;
 
-public  class Articulo {
+public abstract class Articulo implements Serializable{
     //Definicion de atributos de la clase
     private int cod;
     private String nomP;

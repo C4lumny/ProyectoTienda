@@ -1,13 +1,20 @@
 package Logica;
 
 import Vista.Entrada;
+import java.io.IOException;
+import Logica.*;
 import Modelo.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Datos.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Tienda implements LibroTienda {
 
     ArrayList<Articulo> lista = new ArrayList<>();
+    GestionArticulos modelo = new GestionArticulos();
 
     @Override
     public void RegistrarArticulo() {
@@ -42,6 +49,11 @@ public class Tienda implements LibroTienda {
                         cantidad = Entrada.leerDouble();
                         articulo = new ProductoP(cod, nombre, precio, cantidad);
                         lista.add(articulo);
+                        try {
+                            modelo.registrarArticulos(articulo);
+                        } catch (IOException ioe) {
+                            System.out.println("Excepcion: "+ioe.getMessage());
+                        }
                         do {
                             System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
                             seguir = Entrada.leerDato().charAt(0);

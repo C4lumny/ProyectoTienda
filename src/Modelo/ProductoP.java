@@ -1,6 +1,7 @@
 
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 public class ProductoP extends Articulo{

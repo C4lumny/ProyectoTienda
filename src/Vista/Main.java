@@ -3,6 +3,7 @@ package Vista;
 
 import Modelo.*;
 import Logica.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
