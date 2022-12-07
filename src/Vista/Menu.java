@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Menu {
 
-    GestionArticulos modelo = new GestionArticulos();
     Scanner sc = new Scanner(System.in);
     Tienda tienda = new Tienda();
     int cod;
@@ -24,7 +23,6 @@ public class Menu {
             System.out.println("");
             System.out.println("TIENDA " + nombre);
             System.out.println("");
-            System.out.println("0. Leer archivo");
             System.out.println("1. Registrar producto");
             System.out.println("2. Registrar ventas");
             System.out.println("3. Actualizar producto");
@@ -35,16 +33,6 @@ public class Menu {
             System.out.print("\nIngrese la opcion de su preferencia: ");
             op = Entrada.leerInt();
             switch (op) {
-                case 0:
-                    try {
-                    ArrayList<Articulo> articles = modelo.leerArticulos();
-                    for (Articulo a : articles){
-                        System.out.println(a);
-                    }
-                }catch(IOException ioe){
-                        System.out.println("Excepcion: "+ ioe.getLocalizedMessage());
-                }
-                break;
                 case 1:
                     tienda.RegistrarArticulo();
                     break;

@@ -23,7 +23,6 @@ public abstract class Articulo implements Serializable{
     }
 
     //Getters y setters
-
     
     public double getpVentaC() {
         return pVentaC;
@@ -87,7 +86,5 @@ public abstract class Articulo implements Serializable{
     }
     
     //Definicion de metodos
-    
-    
-        
+
 }

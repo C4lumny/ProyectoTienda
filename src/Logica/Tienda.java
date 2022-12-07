@@ -1,12 +1,9 @@
 package Logica;
 
 import Vista.Entrada;
-import java.io.IOException;
-import Logica.*;
 import Modelo.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Datos.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +11,6 @@ import java.util.logging.Logger;
 public class Tienda implements LibroTienda {
 
     ArrayList<Articulo> lista = new ArrayList<>();
-    GestionArticulos modelo = new GestionArticulos();
 
     @Override
     public void RegistrarArticulo() {
@@ -24,7 +20,6 @@ public class Tienda implements LibroTienda {
         double precio, cantidad;
         char R = 'S';
         do {
-            Articulo articulo;
             System.out.println("");
             System.out.println("---Registrar Producto---");
             System.out.println("\n1. Registrar producto por peso[LB]");
@@ -47,37 +42,33 @@ public class Tienda implements LibroTienda {
                         precio = Entrada.leerDouble();
                         System.out.print("Ingrese la cantidad en libras[LB] que compro del producto: ");
                         cantidad = Entrada.leerDouble();
-                        articulo = new ProductoP(cod, nombre, precio, cantidad);
-                        lista.add(articulo);
-                        try {
-                            modelo.registrarArticulos(articulo);
-                        } catch (IOException ioe) {
-                            System.out.println("Excepcion: "+ioe.getMessage());
-                        }
-                        do {
-                            System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
-                            seguir = Entrada.leerDato().charAt(0);
-                            seguir = Character.toUpperCase(seguir);
-                        } while (seguir != 'S' && seguir != 'N');
+                        ProductoP pp = new ProductoP(cod, nombre, precio, cantidad);
+                        //lista.add(articulo);
+                    
+                    do {
+                        System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
+                        seguir = Entrada.leerDato().charAt(0);
+                        seguir = Character.toUpperCase(seguir);
+                    } while (seguir != 'S' && seguir != 'N');
 
-                    }
-                    break;
+            }
+            break;
 
-                case 2:
+          case 2:
                     seguir = 'S';
                     while (seguir == 'S') {
-                        System.out.println("");
-                        System.out.print("Ingrese el codigo del producto: ");
-                        cod = Entrada.leerInt();
-                        System.out.print("Ingrese el nombre del producto: ");
-                        nombre = Entrada.leerLinea();
-                        nombre = nombre.toUpperCase();
-                        System.out.print("Ingrese el precio al que compro el producto: ");
-                        precio = Entrada.leerDouble();
-                        System.out.print("Ingrese la cantidad que compro del producto: ");
-                        cant = Entrada.leerInt();
-                        articulo = new ProductoU(cod, nombre, precio, cant);
-                        lista.add(articulo);
+                            System.out.println("");
+                            System.out.print("Ingrese el codigo del producto: ");
+                            cod = Entrada.leerInt();
+                            System.out.print("Ingrese el nombre del producto: ");
+                            nombre = Entrada.leerLinea();
+                            nombre = nombre.toUpperCase();
+                            System.out.print("Ingrese el precio al que compro el producto: ");
+                            precio = Entrada.leerDouble();
+                            System.out.print("Ingrese la cantidad que compro del producto: ");
+                            cant = Entrada.leerInt();
+                            ProductoU pu = new ProductoU(cod, nombre, precio, cant);
+                            //lista.add(articulo);
                         do {
                             System.out.print("\n¿Desea seguir agregando mas productos?[S/N]: ");
                             seguir = Entrada.leerDato().charAt(0);
@@ -94,12 +85,15 @@ public class Tienda implements LibroTienda {
                 default:
                     System.out.println("La opcion ingresada no existe. Ingrese una opcion valida");
             }
-        } while (R != 'N');
+        
+    }
+    while (R 
+!= 'N');
 
     }
 
     @Override
-    public String ConsultarArt(int cod) {
+public String ConsultarArt(int cod) {
         int i = 0;
         boolean ved = false;
         while (i < lista.size() && ved == false) {
@@ -123,7 +117,7 @@ public class Tienda implements LibroTienda {
     }
 
     @Override
-    public void Informe() {
+public void Informe() {
         int op = 0;
         double ganaciaT = 0;
         if (lista.isEmpty() == true) {
@@ -186,7 +180,7 @@ public class Tienda implements LibroTienda {
     }
 
     @Override
-    public void RegistrarVenta() {
+public void RegistrarVenta() {
         char R, R1 = 'S';
         int cod;
 
@@ -262,7 +256,7 @@ public class Tienda implements LibroTienda {
     }
 
     @Override
-    public void BorrarA(int cod) {
+public void BorrarA(int cod) {
         char op;
         boolean seguir = false;
         int i = 0;
@@ -297,7 +291,7 @@ public class Tienda implements LibroTienda {
     }
 
     @Override
-    public void Actualizar(int cod) {
+public void Actualizar(int cod) {
         int i = 0;
         char R = 'S';
         Articulo art = null;
