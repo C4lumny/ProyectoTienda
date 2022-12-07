@@ -42,8 +42,8 @@ public class Tienda implements LibroTienda {
                         precio = Entrada.leerDouble();
                         System.out.print("Ingrese la cantidad en libras[LB] que compro del producto: ");
                         cantidad = Entrada.leerDouble();
-                        ProductoP pp = new ProductoP(cod, nombre, precio, cantidad);
-                        //lista.add(articulo);
+                        Articulo pp = new ProductoP(cod, nombre, precio, cantidad);
+                        lista.add(pp);
                     
                     do {
                         System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
@@ -67,8 +67,8 @@ public class Tienda implements LibroTienda {
                             precio = Entrada.leerDouble();
                             System.out.print("Ingrese la cantidad que compro del producto: ");
                             cant = Entrada.leerInt();
-                            ProductoU pu = new ProductoU(cod, nombre, precio, cant);
-                            //lista.add(articulo);
+                            Articulo pu = new ProductoU(cod, nombre, precio, cant);
+                            lista.add(pu);
                         do {
                             System.out.print("\n¿Desea seguir agregando mas productos?[S/N]: ");
                             seguir = Entrada.leerDato().charAt(0);
