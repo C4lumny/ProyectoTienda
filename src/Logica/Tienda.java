@@ -1,5 +1,6 @@
 package Logica;
 
+import Datos.*;
 import Vista.Entrada;
 import Modelo.*;
 import java.util.ArrayList;
@@ -8,12 +9,13 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Tienda implements LibroTienda {
+public class Tienda implements ILibroTienda {
 
-    ArrayList<Articulo> lista = new ArrayList<>();
+    //ArrayList<Articulo> lista = new ArrayList<>();
+    Gestion archivo = new Gestion();
 
     @Override
-    public void RegistrarArticulo() {
+    public void RegistrarArticulo() throws IOException{
         int op, cod, cant;
         String nombre;
         char seguir;
@@ -43,32 +45,36 @@ public class Tienda implements LibroTienda {
                         System.out.print("Ingrese la cantidad en libras[LB] que compro del producto: ");
                         cantidad = Entrada.leerDouble();
                         Articulo pp = new ProductoP(cod, nombre, precio, cantidad);
-                        lista.add(pp);
-                    
-                    do {
-                        System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
-                        seguir = Entrada.leerDato().charAt(0);
-                        seguir = Character.toUpperCase(seguir);
-                    } while (seguir != 'S' && seguir != 'N');
+                        //lista.add(pp);
+                        archivo.guardar(pp);
 
-            }
-            break;
+                        do {
+                            System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
+                            seguir = Entrada.leerDato().charAt(0);
+                            seguir = Character.toUpperCase(seguir);
+                        } while (seguir != 'S' && seguir != 'N');
 
-          case 2:
+                    }
+                    break;
+
+                case 2:
                     seguir = 'S';
                     while (seguir == 'S') {
-                            System.out.println("");
-                            System.out.print("Ingrese el codigo del producto: ");
-                            cod = Entrada.leerInt();
-                            System.out.print("Ingrese el nombre del producto: ");
-                            nombre = Entrada.leerLinea();
-                            nombre = nombre.toUpperCase();
-                            System.out.print("Ingrese el precio al que compro el producto: ");
-                            precio = Entrada.leerDouble();
-                            System.out.print("Ingrese la cantidad que compro del producto: ");
-                            cant = Entrada.leerInt();
-                            Articulo pu = new ProductoU(cod, nombre, precio, cant);
-                            lista.add(pu);
+
+                        System.out.println("");
+                        System.out.print("Ingrese el codigo del producto: ");
+                        cod = Entrada.leerInt();
+                        System.out.print("Ingrese el nombre del producto: ");
+                        nombre = Entrada.leerLinea();
+                        nombre = nombre.toUpperCase();
+                        System.out.print("Ingrese el precio al que compro el producto: ");
+                        precio = Entrada.leerDouble();
+                        System.out.print("Ingrese la cantidad que compro del producto: ");
+                        cant = Entrada.leerInt();
+                        Articulo pu = new ProductoU(cod, nombre, precio, cant);
+                        //lista.add(pu);
+                        archivo.guardar(pu);
+
                         do {
                             System.out.print("\n¿Desea seguir agregando mas productos?[S/N]: ");
                             seguir = Entrada.leerDato().charAt(0);
@@ -85,17 +91,18 @@ public class Tienda implements LibroTienda {
                 default:
                     System.out.println("La opcion ingresada no existe. Ingrese una opcion valida");
             }
-        
-    }
-    while (R 
-!= 'N');
+
+        } while (R
+                != 'N');
 
     }
 
     @Override
-public String ConsultarArt(int cod) {
+    public String ConsultarArt(int cod) throws IOException{
         int i = 0;
         boolean ved = false;
+        ArrayList<Articulo> lista = archivo.Informar();
+        
         while (i < lista.size() && ved == false) {
             if (lista.get(i).getCod() == cod) {
                 ved = true;
@@ -117,7 +124,8 @@ public String ConsultarArt(int cod) {
     }
 
     @Override
-public void Informe() {
+    public void Informe() throws IOException {
+        ArrayList<Articulo> lista = archivo.Informar();
         int op = 0;
         double ganaciaT = 0;
         if (lista.isEmpty() == true) {
@@ -180,9 +188,10 @@ public void Informe() {
     }
 
     @Override
-public void RegistrarVenta() {
+    public void RegistrarVenta() throws IOException{
         char R, R1 = 'S';
         int cod;
+        ArrayList<Articulo> lista = archivo.Informar();
 
         while (R1 == 'S') {
             System.out.print("\nIngrese el codigo del producto que desea registrar la(s) venta: ");
@@ -256,10 +265,12 @@ public void RegistrarVenta() {
     }
 
     @Override
-public void BorrarA(int cod) {
+    public void BorrarA(int cod) throws IOException{
         char op;
         boolean seguir = false;
         int i = 0;
+        ArrayList<Articulo> lista = archivo.Informar();
+        
         while (i < lista.size() && seguir == false) {
             if (lista.get(i).getCod() == cod) {
                 seguir = true;
@@ -291,11 +302,13 @@ public void BorrarA(int cod) {
     }
 
     @Override
-public void Actualizar(int cod) {
+    public void Actualizar(int cod) throws IOException{
         int i = 0;
         char R = 'S';
         Articulo art = null;
         boolean ved = false;
+        ArrayList<Articulo> lista=archivo.Informar();
+        
         while (i < lista.size() && ved == false) {
             if (lista.get(i).getCod() == cod) {
                 ved = true;

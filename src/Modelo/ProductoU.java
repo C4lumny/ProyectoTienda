@@ -1,14 +1,12 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class ProductoU extends Articulo implements Serializable {
 
     //Declaracion de atributos
     private int cNumero;
     private double numero;
-    Scanner captura = new Scanner(System.in);
 
     //Implementacion de constructor
     public ProductoU() {
@@ -17,10 +15,10 @@ public class ProductoU extends Articulo implements Serializable {
     public ProductoU(int cod, String nomP, double precioC, int cNumero) {
         super(cod, nomP, precioC);
         this.cNumero = cNumero;
-//        this.setID(2);
-//        this.numero = (double) cNumero;
-//        this.setCant(numero);
-//        this.setpVentaC(precioC / numero);
+        this.setID(2);
+        this.numero = (double) cNumero;
+        this.setCant(numero);
+        this.setpVentaC(precioC / numero);
     }
 
     //Definicion de getter y setters
@@ -32,7 +30,9 @@ public class ProductoU extends Articulo implements Serializable {
         this.cNumero = cNumero;
     }
 
-    
-
-    
+    @Override
+    public String toString() {
+        return super.toString() + "ProductoU{" + "cNumero=" + cNumero + ", numero=" + numero + '}';
+    }
+ 
 }

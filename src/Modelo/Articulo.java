@@ -2,7 +2,8 @@ package Modelo;
 
 import java.io.*;
 
-public abstract class Articulo implements Serializable{
+public abstract class Articulo implements Serializable {
+
     //Definicion de atributos de la clase
     private int cod;
     private String nomP;
@@ -23,7 +24,6 @@ public abstract class Articulo implements Serializable{
     }
 
     //Getters y setters
-    
     public double getpVentaC() {
         return pVentaC;
     }
@@ -31,8 +31,6 @@ public abstract class Articulo implements Serializable{
     public void setpVentaC(double pVentaC) {
         this.pVentaC = pVentaC;
     }
-
-    
 
     public int getID() {
         return ID;
@@ -49,8 +47,7 @@ public abstract class Articulo implements Serializable{
     public void setCant(double cant) {
         this.cant = cant;
     }
-    
-    
+
     public int getCod() {
         return cod;
     }
@@ -75,8 +72,6 @@ public abstract class Articulo implements Serializable{
         this.precioC = precioC;
     }
 
-   
-
     public double getGanancia() {
         return ganancia;
     }
@@ -84,7 +79,11 @@ public abstract class Articulo implements Serializable{
     public void setGanancia(double ganancia) {
         this.ganancia = ganancia;
     }
-    
+
     //Definicion de metodos
+    @Override
+    public String toString() {
+        return "Articulo{" + "cod=" + cod + ", nomP=" + nomP + ", precioC=" + precioC + ", pVentaC=" + pVentaC + ", ganancia=" + ganancia + ", ID=" + ID + ", cant=" + cant + '}';
+    }
 
 }

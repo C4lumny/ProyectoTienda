@@ -12,7 +12,7 @@ public class Menu {
     Tienda tienda = new Tienda();
     int cod;
 
-    public void menuVistaConsola() {
+    public void menuVistaConsola() throws IOException{
         String nombre;
         int op;
         System.out.print("Ingrese el nombre de su tienda: ");
