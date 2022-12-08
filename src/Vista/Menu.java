@@ -1,5 +1,6 @@
 package Vista;
 
+import Logica.Entrada;
 import Modelo.*;
 import Logica.*;
 import java.io.IOException;

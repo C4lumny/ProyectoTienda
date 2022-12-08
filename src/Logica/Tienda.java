@@ -1,7 +1,6 @@
 package Logica;
 
 import Datos.*;
-import Vista.Entrada;
 import Modelo.*;
 import java.util.ArrayList;
 import java.util.Scanner;

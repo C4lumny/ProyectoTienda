@@ -1,4 +1,4 @@
-package Vista;
+package Logica;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,11 +10,14 @@ public class Entrada {
     public static int leerInt() {
         int valor = 0;
         boolean tieneExcepcion;
+
         do {
+            if (aNegativeInt(valor)) {
+                System.out.print("Se requiere un valor entero positivo: ");
+            }
             try {
                 valor = entrada.nextInt();
                 tieneExcepcion = false;
-
             } catch (java.util.InputMismatchException IME) {
                 System.out.print("Se requiere un valor numerico entero: ");
                 entrada.nextLine();
@@ -30,6 +33,9 @@ public class Entrada {
         double valor = 0;
         boolean tieneExcepcion;
         do {
+            if (aNegativeDouble(valor)) {
+                System.out.print("Se requiere un valor real positivo: ");
+            }
             try {
                 valor = entrada.nextDouble();
                 tieneExcepcion = false;
@@ -39,7 +45,7 @@ public class Entrada {
                 entrada.nextLine();
                 tieneExcepcion = true;
             }
-        } while (tieneExcepcion);
+        } while (tieneExcepcion || aNegativeDouble(valor));
         return valor;
     }
 
@@ -50,6 +56,22 @@ public class Entrada {
 
     public static String leerDato() {
         return entrada.next();
+    }
+
+    private static boolean aNegativeInt(int n) {
+        if (n < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean aNegativeDouble(double d) {
+        if (d < 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
