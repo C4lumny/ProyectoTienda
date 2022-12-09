@@ -107,4 +107,7 @@ public class ArchivoArt {
         return this.Leer();
     }
 
+    public boolean verificar() {
+        return this.manejadorArchivo.exists();
+    }
 }

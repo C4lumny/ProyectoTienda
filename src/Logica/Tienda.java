@@ -7,269 +7,101 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Tienda implements ILibroTienda {
 
-    //ArrayList<Articulo> lista = new ArrayList<>();
     Gestion archivo = new Gestion();
 
     @Override
-    public void RegistrarArticulo() throws IOException{
-        int op, cod, cant;
-        String nombre;
-        char seguir;
-        double precio, cantidad;
-        char R = 'S';
-        do {
-            System.out.println("");
-            System.out.println("---Registrar Producto---");
-            System.out.println("\n1. Registrar producto por peso[LB]");
-            System.out.println("2. Registrar producto por cantidad");
-            System.out.println("3. Volver al menu principal");
-            System.out.print("\nIngrese la opcion de su preferencia: ");
-            op = Entrada.leerInt();
-
-            switch (op) {
-                case 1:
-                    seguir = 'S';
-                    while (seguir == 'S') {
-                        System.out.println("");
-                        System.out.print("Ingrese el codigo del producto: ");
-                        cod = Entrada.leerInt();
-                        System.out.print("Ingrese el nombre del producto: ");
-                        nombre = Entrada.leerLinea();
-                        nombre = nombre.toUpperCase();
-                        System.out.print("Ingrese el precio al que compro el producto: ");
-                        precio = Entrada.leerDouble();
-                        System.out.print("Ingrese la cantidad en libras[LB] que compro del producto: ");
-                        cantidad = Entrada.leerDouble();
-                        Articulo pp = new ProductoP(cod, nombre, precio, cantidad);
-                        //lista.add(pp);
-                        archivo.guardar(pp);
-
-                        do {
-                            System.out.print("\n¿Desea seguir agregando mas productos por peso?[S/N]: ");
-                            seguir = Entrada.leerDato().charAt(0);
-                            seguir = Character.toUpperCase(seguir);
-                        } while (seguir != 'S' && seguir != 'N');
-
-                    }
-                    break;
-
-                case 2:
-                    seguir = 'S';
-                    while (seguir == 'S') {
-
-                        System.out.println("");
-                        System.out.print("Ingrese el codigo del producto: ");
-                        cod = Entrada.leerInt();
-                        System.out.print("Ingrese el nombre del producto: ");
-                        nombre = Entrada.leerLinea();
-                        nombre = nombre.toUpperCase();
-                        System.out.print("Ingrese el precio al que compro el producto: ");
-                        precio = Entrada.leerDouble();
-                        System.out.print("Ingrese la cantidad que compro del producto: ");
-                        cant = Entrada.leerInt();
-                        Articulo pu = new ProductoU(cod, nombre, precio, cant);
-                        //lista.add(pu);
-                        archivo.guardar(pu);
-
-                        do {
-                            System.out.print("\n¿Desea seguir agregando mas productos?[S/N]: ");
-                            seguir = Entrada.leerDato().charAt(0);
-                            seguir = Character.toUpperCase(seguir);
-                        } while (seguir != 'S' && seguir != 'N');
-
-                    }
-                    break;
-
-                case 3:
-                    R = 'N';
-                    break;
-
-                default:
-                    System.out.println("La opcion ingresada no existe. Ingrese una opcion valida");
-            }
-
-        } while (R
-                != 'N');
-
+    public void RegistrarArticulo(String codigo, String nombre, double precio, double peso, int OP) throws IOException {
+        switch (OP) {
+            case 1:
+                Articulo productoP = new ProductoP(codigo, nombre, precio, peso);
+                archivo.guardar(productoP);
+                break;
+            case 2:
+                Articulo productoU = new ProductoU(codigo, nombre, precio, (int) peso);
+                archivo.guardar(productoU);
+                break;
+        }
     }
 
     @Override
-    public String ConsultarArt(int cod) throws IOException{
+    public Articulo ConsultarArt(String cod) throws IOException {
+
         int i = 0;
         boolean ved = false;
         ArrayList<Articulo> lista = archivo.Informar();
-        
+
         while (i < lista.size() && ved == false) {
-            if (lista.get(i).getCod() == cod) {
-                ved = true;
-            } else {
+            if (!lista.get(i).getCod().equals(cod)) {
                 i++;
+            } else {
+                ved = true;
             }
         }
         if (ved == true) {
-            String producto = "\nCodigo del producto: " + lista.get(i).getCod()
-                    + "\nNombre del producto: " + lista.get(i).getNomP()
-                    + "\nCantidad actual: " + lista.get(i).getCant()
-                    + "\nInversion total: " + lista.get(i).getPrecioC()
-                    + "\nGanancias registradas: " + lista.get(i).getGanancia();
+            return lista.get(i);
+        }
+        return null;
+    }
 
-            return producto;
+    @Override
+    public ArrayList<Articulo> Informe() throws IOException {
+
+        if (!archivo.verificar()) {
+            JOptionPane.showMessageDialog(null, "NO SEA GUARDADO NINGUN ARTICULO");
+            return null;
         } else {
-            return "El articulo que desea consultar no existe. ";
+            ArrayList<Articulo> lista = archivo.Informar();
+            return lista;
+
         }
     }
 
     @Override
-    public void Informe() throws IOException {
-        ArrayList<Articulo> lista = archivo.Informar();
-        int op = 0;
-        double ganaciaT = 0;
-        if (lista.isEmpty() == true) {
-            System.out.println("Error... No ha ingresado ningun producto.");
+    public void RegistrarVenta(Articulo V, int canV, double precio) throws IOException {
+        Articulo venta = V;
+        double precioAux, pI, pG, ganancia;
+
+        do {
+
+            if (canV > venta.getCant() || canV < 0) {
+                JOptionPane.showMessageDialog(null, "ERROR... NUMERO ERRONEO VERIFIQUE Y REINTENTELO ");
+            }
+        } while (canV > venta.getCant() || canV < 0);
+
+        if (venta.getID() == 1) {
+
+            precioAux = precio;
         } else {
-            System.out.println("---LISTA DE PRODUCTOS---");
-            System.out.println("");
-            System.out.println("1. Visualizar productos por peso[LB]");
-            System.out.println("2. Visualizar productos por Unidad");
-            System.out.println("");
-            do {
-                System.out.print("Ingrese la opcion de su preferencia: ");
-                op = Entrada.leerInt();
-            } while (op < 1 || op > 2);
 
-            switch (op) {
-                case 1:
-                    for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(i).getID() == 1) {
-                            System.out.println("");
-                            System.out.println("ID del producto: " + lista.get(i).getCod());
-                            System.out.println("Nombre del producto: " + lista.get(i).getNomP());
-                            System.out.println("Cantidad existente: " + lista.get(i).getCant());
-                            if (lista.get(i).getGanancia() > 0) {
-                                System.out.println("Ganancia: " + lista.get(i).getGanancia());
-                            } else {
-                                System.out.println("´Perdida: " + lista.get(i).getGanancia());
-                            }
-                        }
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(i).getID() == 2) {
-                            System.out.println("");
-                            System.out.println("ID del producto: " + lista.get(i).getCod());
-                            System.out.println("Nombre del producto: " + lista.get(i).getNomP());
-                            System.out.println("Cantidad existente: " + lista.get(i).getCant());
-                            if (lista.get(i).getGanancia() > 0) {
-                                System.out.println("Ganancia: " + lista.get(i).getGanancia());
-                                ganaciaT += lista.get(i).getGanancia();
-                            } else {
-                                System.out.println("´Perdida: " + lista.get(i).getGanancia());
-                                ganaciaT += lista.get(i).getGanancia();
-                            }
-                            if (lista.size() - 1 == i) {
-                                if (ganaciaT > 0) {
-
-                                    System.out.println("\nLA GANANCIA TOTAL ES: " + ganaciaT);
-                                } else {
-                                    System.out.println("\nLA PERDIDA TOTAL ES: " + ganaciaT);
-                                }
-                            }
-                        }
-                    }
-                    break;
-
-            }
+            precioAux = precio;
         }
-    }
 
-    @Override
-    public void RegistrarVenta() throws IOException{
-        char R, R1 = 'S';
-        int cod;
-        ArrayList<Articulo> lista = archivo.Informar();
+        venta.setCant(venta.getCant() - canV);
 
-        while (R1 == 'S') {
-            System.out.print("\nIngrese el codigo del producto que desea registrar la(s) venta: ");
-            cod = Entrada.leerInt();
-
-            boolean ved = false;
-            int I = 0;
-            while (I < lista.size() && ved == false) {
-                if (lista.get(I).getCod() == cod) {
-                    ved = true;
-                } else {
-                    I++;
-                }
-            }
-
-            if (ved == true) {
-                double precioAux, cantV, pI, pG, ganancia;
-                System.out.println("--- REGISTRAR VENTA ---");
-                System.out.println("Nombre del articulo: " + lista.get(I).getNomP());
-                System.out.println("Codigo del producto: " + lista.get(I).getCod());
-                System.out.println("Cantidad existente: " + lista.get(I).getCant());
-                System.out.println("Inversion: " + lista.get(I).getPrecioC());
-
-                System.out.println("");
-
-                do {
-                    System.out.print("Digite la cantidad que se vendio: ");
-                    cantV = Entrada.leerDouble();
-                    if (cantV > lista.get(I).getCant() || cantV < 0) {
-                        System.out.println("ERROR... NUMERO ERRONEO VERIFIQUE Y REINTENTELO \n");
-                    }
-                } while (cantV > lista.get(I).getCant() || cantV < 0);
-
-                do {
-                    if (lista.get(I).getID() == 1) {
-                        System.out.print("Digite el precio de venta en libras[LB]: ");
-                        precioAux = Entrada.leerDouble();
-                    } else {
-                        System.out.print("Digite el precio de venta en UNIDAD(ES): ");
-                        precioAux = Entrada.leerDouble();
-                    }
-
-                    System.out.print("\n¿Esta seguro de que ese fue el precio de la venta? [S/N]: ");
-                    R = Entrada.leerDato().charAt(0);
-                    R = Character.toUpperCase(R);
-                } while (R != 'N' && R != 'S');
-
-                System.out.println("");
-
-                lista.get(I).setCant(lista.get(I).getCant() - cantV);
-
-                pI = cantV * lista.get(I).getpVentaC();
-                pG = cantV * precioAux;
-                ganancia = pG - pI;
-                if (ganancia > 0) {
-                    System.out.println("\nLa ganancia ha sido de: " + ganancia + "\n\n");
-                } else {
-                    System.out.println("La perdida ha sido de: " + ganancia + "\n\n");
-                }
-                lista.get(I).setGanancia(lista.get(I).getGanancia() + ganancia);
-            } else {
-                System.out.println("ERROR CODIGO NO VALIDO.");
-            }
-            do {
-                System.out.println("\nDESEA HACER OTRO REGISTRO [S/N] ");
-                R = Entrada.leerDato().charAt(0);
-                R1 = Character.toUpperCase(R);
-            } while (R1 != 'S' && R1 != 'N');
+        pI = canV * venta.getpVentaC();
+        pG = canV * precioAux;
+        ganancia = pG - pI;
+        if (ganancia > 0) {
+            JOptionPane.showMessageDialog(null, "La ganancia ha sido de: " + ganancia + " $");
+        } else {
+            JOptionPane.showMessageDialog(null, "La perdida ha sido de: " + ganancia + " $");
         }
+        venta.setGanancia(venta.getGanancia() + ganancia);
 
     }
 
-    @Override
-    public void BorrarA(int cod) throws IOException{
+
+    /*@Override
+    public void BorrarA(String cod) throws IOException {
         char op;
         boolean seguir = false;
         int i = 0;
         ArrayList<Articulo> lista = archivo.Informar();
-        
+
         while (i < lista.size() && seguir == false) {
             if (lista.get(i).getCod() == cod) {
                 seguir = true;
@@ -277,13 +109,9 @@ public class Tienda implements ILibroTienda {
                 i++;
             }
         }
-        System.out.println("");
-        System.out.println("---Borrar producto---");
+        
         if (seguir == true) {
-            String producto = "\nCodigo del producto: " + lista.get(i).getCod()
-                    + "\nNombre del producto: " + lista.get(i).getNomP()
-                    + "\nCantidad actual: " + lista.get(i).getCant();
-            System.out.println(producto);
+            
             do {
                 System.out.print("\n¿Esta seguro de borrar este articulo? [S/N]: ");
                 op = Entrada.leerDato().charAt(0);
@@ -301,13 +129,13 @@ public class Tienda implements ILibroTienda {
     }
 
     @Override
-    public void Actualizar(int cod) throws IOException{
+    public void Actualizar(int cod) throws IOException {
         int i = 0;
         char R = 'S';
         Articulo art = null;
         boolean ved = false;
-        ArrayList<Articulo> lista=archivo.Informar();
-        
+        ArrayList<Articulo> lista = archivo.Informar();
+
         while (i < lista.size() && ved == false) {
             if (lista.get(i).getCod() == cod) {
                 ved = true;
@@ -376,5 +204,5 @@ public class Tienda implements ILibroTienda {
         }
 
     }
-
+     */
 }

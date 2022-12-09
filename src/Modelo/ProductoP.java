@@ -11,12 +11,12 @@ public class ProductoP extends Articulo implements Serializable{
     public ProductoP() {
     }
 
-    public ProductoP(int cod, String nomP, double precioC, double cPeso) {
+    public ProductoP(String cod, String nomP, double precioC, double cPeso) {
         super(cod, nomP, precioC);
         this.cPeso = cPeso;
         this.setID(1);
         this.setCant(cPeso);
-        this.setpVentaC(precioC/cPeso);
+        //this.setpVentaC(precioC/cPeso);
     }
 
     public double getcPeso() {

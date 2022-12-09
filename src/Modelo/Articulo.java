@@ -5,7 +5,7 @@ import java.io.*;
 public abstract class Articulo implements Serializable {
 
     //Definicion de atributos de la clase
-    private int cod;
+    private String cod;
     private String nomP;
     private double precioC;
     private double pVentaC;
@@ -17,7 +17,7 @@ public abstract class Articulo implements Serializable {
     public Articulo() {
     }
 
-    public Articulo(int cod, String nomP, double precioC) {
+    public Articulo(String cod, String nomP, double precioC) {
         this.cod = cod;
         this.nomP = nomP;
         this.precioC = precioC;
@@ -48,11 +48,11 @@ public abstract class Articulo implements Serializable {
         this.cant = cant;
     }
 
-    public int getCod() {
+    public String getCod() {
         return cod;
     }
 
-    public void setCod(int cod) {
+    public void setCod(String cod) {
         this.cod = cod;
     }
 

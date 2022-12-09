@@ -12,13 +12,13 @@ public class ProductoU extends Articulo implements Serializable {
     public ProductoU() {
     }
 
-    public ProductoU(int cod, String nomP, double precioC, int cNumero) {
-        super(cod, nomP, precioC);
+    public ProductoU(String cod, String nomP, double precioC, int cNumero) {
+        super(cod, nomP, precioC); 
         this.cNumero = cNumero;
         this.setID(2);
         this.numero = (double) cNumero;
         this.setCant(numero);
-        this.setpVentaC(precioC / numero);
+        //this.setpVentaC(precioC / numero);
     }
 
     //Definicion de getter y setters
