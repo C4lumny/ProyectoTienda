@@ -18,7 +18,7 @@ public class ProductoU extends Articulo implements Serializable {
         this.setID(2);
         this.numero = (double) cNumero;
         this.setCant(numero);
-        //this.setpVentaC(precioC / numero);
+        this.setpVentaC(precioC / numero);
     }
 
     //Definicion de getter y setters

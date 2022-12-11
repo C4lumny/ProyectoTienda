@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class Tienda implements ILibroTienda {
 
     Gestion archivo = new Gestion();
+    Entrada tranfor = new Entrada();
 
     @Override
     public void RegistrarArticulo(String codigo, String nombre, double precio, double peso, int OP) throws IOException {
@@ -29,7 +30,6 @@ public class Tienda implements ILibroTienda {
 
     @Override
     public Articulo ConsultarArt(String cod) throws IOException {
-
         int i = 0;
         boolean ved = false;
         ArrayList<Articulo> lista = archivo.Informar();
@@ -41,10 +41,12 @@ public class Tienda implements ILibroTienda {
                 ved = true;
             }
         }
+
         if (ved == true) {
             return lista.get(i);
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -64,38 +66,34 @@ public class Tienda implements ILibroTienda {
     public void RegistrarVenta(Articulo V, int canV, double precio) throws IOException {
         Articulo venta = V;
         double precioAux, pI, pG, ganancia;
+        boolean ved = true;
 
-        do {
+        if (canV > venta.getCant() || canV < 0) {
+            JOptionPane.showMessageDialog(null, "ERROR AL DIGITAR EL NUMERO DE VENTA DE ESTE PRODUCTO.\n"
+                    + "RECUERDE QUE LA CANTIDAD VENDIDA NO PUEDE SER MAYOR A LA\n"
+                    + "CANTIDAD EXISTENTE");
+            ved = false;
+        }
 
-            if (canV > venta.getCant() || canV < 0) {
-                JOptionPane.showMessageDialog(null, "ERROR... NUMERO ERRONEO VERIFIQUE Y REINTENTELO ");
+        if (ved) {
+            precioAux = precio;
+            venta.setCant(venta.getCant() - canV);
+
+            pI = canV * venta.getPrecioC();
+            pG = canV * precioAux;
+            ganancia = pG - pI;
+            if (ganancia > 0) {
+                JOptionPane.showMessageDialog(null, "La ganancia ha sido de: " + ganancia + " $ ");
+            } else {
+                JOptionPane.showMessageDialog(null, "La perdida ha sido de: " + ganancia + " $ ");
             }
-        } while (canV > venta.getCant() || canV < 0);
+            venta.setGanancia(venta.getGanancia() + ganancia);
 
-        if (venta.getID() == 1) {
-
-            precioAux = precio;
-        } else {
-
-            precioAux = precio;
         }
-
-        venta.setCant(venta.getCant() - canV);
-
-        pI = canV * venta.getpVentaC();
-        pG = canV * precioAux;
-        ganancia = pG - pI;
-        if (ganancia > 0) {
-            JOptionPane.showMessageDialog(null, "La ganancia ha sido de: " + ganancia + " $");
-        } else {
-            JOptionPane.showMessageDialog(null, "La perdida ha sido de: " + ganancia + " $");
-        }
-        venta.setGanancia(venta.getGanancia() + ganancia);
 
     }
 
-
-    /*@Override
+    @Override
     public void BorrarA(String cod) throws IOException {
         char op;
         boolean seguir = false;
@@ -109,100 +107,52 @@ public class Tienda implements ILibroTienda {
                 i++;
             }
         }
-        
         if (seguir == true) {
-            
-            do {
-                System.out.print("\n¿Esta seguro de borrar este articulo? [S/N]: ");
-                op = Entrada.leerDato().charAt(0);
-                op = Character.toUpperCase(op);
-            } while (op != 'S' && op != 'N');
-            if (op == 'S') {
-                lista.remove(i);
-            } else {
-                System.out.println("Pulse cualquier tecla para volver al menu. ");
-                Entrada.leerDato();
-            }
-        } else {
-            System.out.println("El articulo que desea borrar no existe.");
+            lista.remove(i);
+            archivo.Actualizar(lista);
         }
+
     }
 
     @Override
-    public void Actualizar(int cod) throws IOException {
+    public void Actualizar(String cod, int OP, String auxi) throws IOException {
+        double cantidad;
         int i = 0;
-        char R = 'S';
-        Articulo art = null;
         boolean ved = false;
+
         ArrayList<Articulo> lista = archivo.Informar();
 
         while (i < lista.size() && ved == false) {
-            if (lista.get(i).getCod() == cod) {
-                ved = true;
-            } else {
+            if (!lista.get(i).getCod().equals(cod)) {
                 i++;
+            } else {
+                ved = true;
             }
         }
-        if (ved == true) {
-            int op = 0, codigo;
-            String nombre;
-            double cantidad;
 
-            System.out.println(ConsultarArt(cod));
+        switch (OP) {
+            case 1:
 
-            System.out.println("");
-            System.out.println("---ACTUALIZAR PRODUCTO---");
-            System.out.println("1. Actualizar Codigo}"
-                    + "\n2. Actualizar nombre"
-                    + "\n3. Actualizar cantidad"
-                    + "\n4. Actualizar inversion"
-                    + "\n5. Volver al menu");
-            while (R == 'S') {
-                System.out.print("Que campo del articulo desea actualizar?: ");
-                op = Entrada.leerInt();
-                switch (op) {
-                    case 1:
-                        System.out.println("Ingrese el nuevo codigo: ");
-                        codigo = Entrada.leerInt();
-                        lista.get(i).setCod(codigo);
-                        break;
-                    case 2:
-                        Entrada.leerLinea();
-                        System.out.println("Ingrese el nuevo nombre: ");
-                        nombre = Entrada.leerLinea();
-                        lista.get(i).setNomP(nombre);
-                        break;
-                    case 3:
-                        System.out.println("Ingrese la nueva cantidad: ");
-                        cantidad = Entrada.leerDouble();
-                        lista.get(i).setCant(cantidad);
-                        break;
+                lista.get(i).setCod(auxi);
+                archivo.Actualizar(lista);
+                break;
+            case 2:
+                cantidad = tranfor.verificarDouble(auxi);
+                lista.get(i).setPrecioC(cantidad);
+                archivo.Actualizar(lista);
+                break;
+            case 3:
+                lista.get(i).setNomP(auxi);
+                archivo.Actualizar(lista);
+                break;
 
-                    case 4:
-                        System.out.println("Ingrese la nueva cantidad: ");
-                        cantidad = Entrada.leerDouble();
-                        lista.get(i).setPrecioC(cantidad);
-                        break;
-
-                    case 5:
-                        break;
-                    default:
-                        System.out.println("La opcion ingresada no existe. Por favor ingrese una valida");
-
-                }
-                do {
-                    System.out.println("\nDESEA HACER OTRA ACTULIZACION [S/N] ");
-                    R = Entrada.leerDato().charAt(0);
-                    R = Character.toUpperCase(R);
-                } while (R != 'S' && R != 'N');
-
-            }
-
-        } else {
-            System.out.println("El producto que desea actualizar no existe.");
+            case 4:
+                cantidad = tranfor.verificarDouble(auxi);
+                lista.get(i).setCant(cantidad);
+                archivo.Actualizar(lista);
+                break;
 
         }
 
     }
-     */
 }

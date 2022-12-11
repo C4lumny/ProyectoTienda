@@ -68,7 +68,6 @@ public class RegistroProducto extends javax.swing.JFrame{
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -346,7 +345,7 @@ public class RegistroProducto extends javax.swing.JFrame{
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
           this.setVisible(false);
           GUImenu g = new GUImenu();
-          g.setVisible(true);
+          //g.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cmbProductTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductTipeActionPerformed

@@ -357,8 +357,7 @@ public class ConsultarProducto extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-          GUImenu g = new GUImenu();
-          g.setVisible(true);
+        GUImenu g = new GUImenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         //new Menu().menuVistaConsola();
-        //new GUImenu().setVisible(true);
+        new GUImenu().setVisible(true);
 //        String hola = "Hola";
 //        int numbre = Integer.parseInt(hola);
 //        System.out.println("Numbre");

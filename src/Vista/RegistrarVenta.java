@@ -192,6 +192,11 @@ public class RegistrarVenta extends javax.swing.JFrame {
                 txtPventaActionPerformed(evt);
             }
         });
+        txtPventa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPventaKeyTyped(evt);
+            }
+        });
 
         txtCantvendida.setForeground(new java.awt.Color(102, 102, 102));
         txtCantvendida.setBorder(null);
@@ -203,6 +208,11 @@ public class RegistrarVenta extends javax.swing.JFrame {
         txtCantvendida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantvendidaActionPerformed(evt);
+            }
+        });
+        txtCantvendida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantvendidaKeyTyped(evt);
             }
         });
 
@@ -430,7 +440,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
             String Cod = txtCodigo.getText();
             ar = tiendita.ConsultarArt(Cod);
 
-            System.out.println(ar);
             if (ar != null) {
                 b = ar;
                 txtCantvendida.setEnabled(true);
@@ -500,26 +509,48 @@ public class RegistrarVenta extends javax.swing.JFrame {
                     i++;
                 }
             }
-            if (PrecioV <= 0 || Cant <= 0) {
-                JOptionPane.showMessageDialog(null, "ERROR ");
+            if (PrecioV <= 0) {
+                JOptionPane.showMessageDialog(null, "ERROR NO SE PUEDE DIGITAR VALORES NEGATIVOS"
+                        + "EN PRECIO DE VENTA");
             } else {
                 try {
                     tiendita.RegistrarVenta(lista.get(i), Cant, PrecioV);
                     a.Actualizar(lista);
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(RegistrarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
                 }
             }
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(RegistrarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
         GUImenu g = new GUImenu();
-        g.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void txtCantvendidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantvendidaKeyTyped
+
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+        if (c == '-') {
+            JOptionPane.showMessageDialog(null, "No puede ingresar numeros negativos");
+        }
+    }//GEN-LAST:event_txtCantvendidaKeyTyped
+
+    private void txtPventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPventaKeyTyped
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+        if (c == '-') {
+            JOptionPane.showMessageDialog(null, "No puede ingresar numeros negativos");
+        }
+    }//GEN-LAST:event_txtPventaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -555,6 +586,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

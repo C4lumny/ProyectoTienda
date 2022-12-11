@@ -53,7 +53,6 @@ public class Informe extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablita = new javax.swing.JTable();
         cmbTipo = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,13 +104,6 @@ public class Informe extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,9 +118,7 @@ public class Informe extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton1)
-                        .addGap(81, 81, 81))))
+                        .addGap(193, 193, 193))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,11 +126,10 @@ public class Informe extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         btnRegresar.setText("Regresar");
@@ -245,10 +234,6 @@ public class Informe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbTipoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void cmbTipoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTipoMousePressed
 
     }//GEN-LAST:event_cmbTipoMousePressed
@@ -300,7 +285,7 @@ public class Informe extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else if ("Todo".equals(cmbTipo.getSelectedItem().toString())){
             try {
                 ArrayList<Articulo> lista = modelo.Informar();
                 String a[] = new String[10];
@@ -323,7 +308,6 @@ public class Informe extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
          this.setVisible(false);
           GUImenu g = new GUImenu();
-          g.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -372,7 +356,6 @@ public class Informe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cmbTipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

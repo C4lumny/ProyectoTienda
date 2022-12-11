@@ -4,7 +4,12 @@
  */
 package Vista;
 
+import Logica.Entrada;
+import Logica.Tienda;
+import Modelo.Articulo;
 import java.awt.Color;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +17,14 @@ import java.awt.Color;
  */
 public class ActualizarProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ActualizarProducto
-     */
+    Tienda tiendita = new Tienda();
+    Articulo b;
+    Entrada entrar = new Entrada();
+    int ID;
+
     public ActualizarProducto() {
         initComponents();
+        btnActualizar.setEnabled(false);
     }
 
     /**
@@ -34,6 +42,24 @@ public class ActualizarProducto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodP = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        txtPcompra = new javax.swing.JTextField();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        txtNom = new javax.swing.JTextField();
+        jSeparator8 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        txtCant = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        btnBuscar1 = new javax.swing.JButton();
+        btnSeleccionarCod = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnSeleccionarPC = new javax.swing.JButton();
+        btnSeleccionarNombre = new javax.swing.JButton();
+        btnSeleccionarCant = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +83,112 @@ public class ActualizarProducto extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Codigo del producto: ");
+
+        txtCodP.setEditable(false);
+        txtCodP.setForeground(new java.awt.Color(102, 102, 102));
+        txtCodP.setBorder(null);
+        txtCodP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtCodPMousePressed(evt);
+            }
+        });
+        txtCodP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodPActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Precio de compra: ");
+
+        txtPcompra.setEditable(false);
+        txtPcompra.setForeground(new java.awt.Color(102, 102, 102));
+        txtPcompra.setBorder(null);
+        txtPcompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtPcompraMousePressed(evt);
+            }
+        });
+        txtPcompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPcompraActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nombre: ");
+
+        txtNom.setEditable(false);
+        txtNom.setForeground(new java.awt.Color(102, 102, 102));
+        txtNom.setBorder(null);
+        txtNom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNomMousePressed(evt);
+            }
+        });
+        txtNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Cantidad:");
+
+        txtCant.setEditable(false);
+        txtCant.setForeground(new java.awt.Color(102, 102, 102));
+        txtCant.setBorder(null);
+        txtCant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtCantMousePressed(evt);
+            }
+        });
+        txtCant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantActionPerformed(evt);
+            }
+        });
+
+        btnBuscar1.setText("Buscar");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionarCod.setText("Seleccionar");
+        btnSeleccionarCod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarCodActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionarPC.setText("Seleccionar");
+        btnSeleccionarPC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPCActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionarNombre.setText("Seleccionar");
+        btnSeleccionarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarNombreActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionarCant.setText("Seleccionar");
+        btnSeleccionarCant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarCantActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -64,27 +196,107 @@ public class ActualizarProducto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar1)))
+                        .addGap(0, 79, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodP, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSeleccionarCod)
+                            .addComponent(btnSeleccionarNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(2, 2, 2)))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSeleccionarCant)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPcompra, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSeleccionarPC))
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel1)
+                                            .addComponent(btnActualizar))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnBuscar1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCodP, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(txtPcompra, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSeleccionarCod)
+                    .addComponent(btnSeleccionarPC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSeleccionarNombre)
+                    .addComponent(btnSeleccionarCant))
+                .addGap(84, 84, 84))
         );
 
         btnRegresar.setText("Regresar");
@@ -104,7 +316,7 @@ public class ActualizarProducto extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
@@ -113,7 +325,7 @@ public class ActualizarProducto extends javax.swing.JFrame {
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnRegresar)
@@ -158,8 +370,124 @@ public class ActualizarProducto extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
         GUImenu g = new GUImenu();
-        g.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void txtCodPMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodPMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodPMousePressed
+
+    private void txtCodPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodPActionPerformed
+
+    }//GEN-LAST:event_txtCodPActionPerformed
+
+    private void txtPcompraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPcompraMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPcompraMousePressed
+
+    private void txtPcompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPcompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPcompraActionPerformed
+
+    private void txtNomMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomMousePressed
+
+    private void txtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomActionPerformed
+
+    private void txtCantMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCantMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantMousePressed
+
+    private void txtCantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        try {
+            Articulo ar = null;
+            String Cod = jTextField1.getText();
+            ar = tiendita.ConsultarArt(Cod);
+            if (ar != null) {
+                JOptionPane.showMessageDialog(null, "Para poder actualizar, a continuación podrá visualizar los botones correspondientes a cada dato.\n "
+                        + "Por favor, pulselo para realizar la modificación correspondiente");
+                //b = ar;
+                txtCodP.setText(ar.getCod());
+                txtNom.setText(ar.getNomP());
+                txtPcompra.setText((String.valueOf(ar.getPrecioC())));
+                txtCant.setText(String.valueOf(ar.getCant()));
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El producto no existe. Favor verificar el codigo "
+                        + "\ncorrespondiente");
+            }
+        } catch (IOException IOE) {
+        }
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnSeleccionarCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarCodActionPerformed
+        ID = 1;
+        txtCodP.setEditable(true);
+        btnActualizar.setEnabled(true);
+        btnSeleccionarCant.setEnabled(false);
+        btnSeleccionarNombre.setEnabled(false);
+        btnSeleccionarPC.setEnabled(false);
+
+    }//GEN-LAST:event_btnSeleccionarCodActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        try {
+            switch (ID) {
+                case 1:
+                    tiendita.Actualizar(jTextField1.getText(), ID, txtCodP.getText());
+                    jTextField1.setText(txtCodP.getText()); 
+                    break;
+                case 2:
+                    tiendita.Actualizar(jTextField1.getText(), ID, txtPcompra.getText());
+                    break;
+                case 3:
+                    tiendita.Actualizar(jTextField1.getText(), ID, txtNom.getText());
+                    break;
+                case 4:
+                    tiendita.Actualizar(jTextField1.getText(), ID, txtCant.getText());
+                    break;
+            }
+        } catch (IOException IOE) {
+        }
+
+        btnSeleccionarCod.setEnabled(true);
+        btnSeleccionarCant.setEnabled(true);
+        btnSeleccionarNombre.setEnabled(true);
+        btnSeleccionarPC.setEnabled(true);
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSeleccionarPCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPCActionPerformed
+        ID = 2;
+        txtPcompra.setEditable(true);
+        btnActualizar.setEnabled(true);
+        btnSeleccionarCant.setEnabled(false);
+        btnSeleccionarNombre.setEnabled(false);
+        btnSeleccionarCod.setEnabled(false);
+    }//GEN-LAST:event_btnSeleccionarPCActionPerformed
+
+    private void btnSeleccionarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarNombreActionPerformed
+        ID = 3;
+        txtNom.setEditable(true);
+        btnActualizar.setEnabled(true);
+        btnSeleccionarCant.setEnabled(false);
+        btnSeleccionarCod.setEnabled(false);
+        btnSeleccionarPC.setEnabled(false);
+    }//GEN-LAST:event_btnSeleccionarNombreActionPerformed
+
+    private void btnSeleccionarCantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarCantActionPerformed
+        ID = 4;
+        txtCant.setEditable(true);
+        btnActualizar.setEnabled(true);
+        btnSeleccionarCod.setEnabled(false);
+        btnSeleccionarNombre.setEnabled(false);
+        btnSeleccionarPC.setEnabled(false);
+    }//GEN-LAST:event_btnSeleccionarCantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,12 +525,30 @@ public class ActualizarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnSeleccionarCant;
+    private javax.swing.JButton btnSeleccionarCod;
+    private javax.swing.JButton btnSeleccionarNombre;
+    private javax.swing.JButton btnSeleccionarPC;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCant;
+    private javax.swing.JTextField txtCodP;
+    private javax.swing.JTextField txtNom;
+    private javax.swing.JTextField txtPcompra;
     // End of variables declaration//GEN-END:variables
 }

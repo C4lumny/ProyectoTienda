@@ -16,7 +16,7 @@ public class ProductoP extends Articulo implements Serializable{
         this.cPeso = cPeso;
         this.setID(1);
         this.setCant(cPeso);
-        //this.setpVentaC(precioC/cPeso);
+        this.setpVentaC(precioC/cPeso);
     }
 
     public double getcPeso() {
