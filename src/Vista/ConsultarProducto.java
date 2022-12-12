@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarProducto extends javax.swing.JFrame {
 
-    Tienda tiendita = new Tienda();
+    Inventario tiendita = new Inventario();
 
     /**
      * Creates new form ConsultarProducto

@@ -190,7 +190,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(null, "Su usuario ha sido guardado satisfactoriamente");
 
-        Login login = new Login();
+        Main login = new Main();
         this.dispose();
         login.setVisible(true);
     }//GEN-LAST:event_BtnRegistrarActionPerformed

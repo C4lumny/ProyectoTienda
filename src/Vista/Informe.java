@@ -31,7 +31,7 @@ public class Informe extends javax.swing.JFrame {
         JtableVentas.addColumn("Precio de compra");
         JtableVentas.addColumn("Cantidad existente");
         JtableVentas.addColumn("Ganancia ($)");
-        JtableVentas.addColumn("Pérdida (-$)");
+        JtableVentas.addColumn("Perdida ($)");
 
     }
 
@@ -56,9 +56,10 @@ public class Informe extends javax.swing.JFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setPreferredSize(new java.awt.Dimension(800, 600));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -111,15 +112,14 @@ public class Informe extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(25, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193))))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(193, 193, 193))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,9 +128,9 @@ public class Informe extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         btnRegresar.setText("Regresar");
@@ -193,6 +193,7 @@ public class Informe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        
         if ("Producto por peso [Lb]".equals(cmbTipo)) {
             limpiar();
             try {
@@ -204,8 +205,13 @@ public class Informe extends javax.swing.JFrame {
                         a[1] = lista.get(i).getNomP();
                         a[2] = String.valueOf(lista.get(i).getPrecioC());
                         a[3] = String.valueOf(lista.get(i).getCant());
-                        a[4] = String.valueOf(lista.get(i).getGanancia());
-
+                        if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
                         JtableVentas.addRow(a);
                     }
                 }
@@ -224,10 +230,38 @@ public class Informe extends javax.swing.JFrame {
                         a[1] = lista.get(i).getNomP();
                         a[2] = String.valueOf(lista.get(i).getPrecioC());
                         a[3] = String.valueOf(lista.get(i).getCant());
-                        a[4] = String.valueOf(lista.get(i).getGanancia());
-
+                         if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
                         JtableVentas.addRow(a);
                     }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if ("Todo".equals(cmbTipo.getSelectedItem().toString())) {
+            try {
+                limpiar();
+                ArrayList<Articulo> lista = modelo.Informar();
+                String a[] = new String[10];
+                for (int i = 0; i < lista.size(); i++) {
+                    a[0] = lista.get(i).getCod();
+                    a[1] = lista.get(i).getNomP();
+                    a[2] = String.valueOf(lista.get(i).getPrecioC());
+                    a[3] = String.valueOf(lista.get(i).getCant());
+                    if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
+                    JtableVentas.addRow(a);
+
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,6 +282,7 @@ public class Informe extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoMouseClicked
 
     private void cmbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoItemStateChanged
+        
         limpiar();
         if ("Producto por peso [Lb]".equals(cmbTipo.getSelectedItem().toString())) {
             try {
@@ -259,7 +294,13 @@ public class Informe extends javax.swing.JFrame {
                         a[1] = lista.get(i).getNomP();
                         a[2] = String.valueOf(lista.get(i).getPrecioC());
                         a[3] = String.valueOf(lista.get(i).getCant());
-                        a[4] = String.valueOf(lista.get(i).getGanancia());
+                       if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
 
                         JtableVentas.addRow(a);
                     }
@@ -278,15 +319,20 @@ public class Informe extends javax.swing.JFrame {
                         a[1] = lista.get(i).getNomP();
                         a[2] = String.valueOf(lista.get(i).getPrecioC());
                         a[3] = String.valueOf(lista.get(i).getCant());
-                        a[4] = String.valueOf(lista.get(i).getGanancia());
-
+                        if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
                         JtableVentas.addRow(a);
                     }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("Todo".equals(cmbTipo.getSelectedItem().toString())){
+        } else if ("Todo".equals(cmbTipo.getSelectedItem().toString())) {
             try {
                 ArrayList<Articulo> lista = modelo.Informar();
                 String a[] = new String[10];
@@ -295,8 +341,13 @@ public class Informe extends javax.swing.JFrame {
                     a[1] = lista.get(i).getNomP();
                     a[2] = String.valueOf(lista.get(i).getPrecioC());
                     a[3] = String.valueOf(lista.get(i).getCant());
-                    a[4] = String.valueOf(lista.get(i).getGanancia());
-
+                    if(lista.get(i).getGanancia()<=0){
+                            a[5] = String.valueOf(lista.get(i).getGanancia());
+                            a[4]="0";
+                        }else{
+                            a[4] = String.valueOf(lista.get(i).getGanancia());
+                            a[5]="0";
+                        }
                     JtableVentas.addRow(a);
 
                 }
@@ -307,52 +358,55 @@ public class Informe extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoItemStateChanged
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-         this.setVisible(false);
-          GUImenu g = new GUImenu();
+        this.setVisible(false);
+        GUImenu g = new GUImenu();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Informe.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Informe.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Informe.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Informe.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Informe().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Informe.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Informe.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Informe.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Informe.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Informe().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;

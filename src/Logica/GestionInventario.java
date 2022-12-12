@@ -4,7 +4,7 @@ import Modelo.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface ILibroTienda {
+public interface GestionInventario {
 
     void RegistrarArticulo(String codigo, String nombre, double precio, double peso, int OP) throws IOException;
 

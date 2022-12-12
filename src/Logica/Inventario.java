@@ -9,22 +9,41 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Tienda implements ILibroTienda {
+public class Inventario implements GestionInventario {
 
     Gestion archivo = new Gestion();
     Entrada tranfor = new Entrada();
 
     @Override
     public void RegistrarArticulo(String codigo, String nombre, double precio, double peso, int OP) throws IOException {
-        switch (OP) {
-            case 1:
-                Articulo productoP = new ProductoP(codigo, nombre, precio, peso);
-                archivo.guardar(productoP);
-                break;
-            case 2:
-                Articulo productoU = new ProductoU(codigo, nombre, precio, (int) peso);
-                archivo.guardar(productoU);
-                break;
+        ArrayList<Articulo> lista = archivo.Informar();
+        int i = 0;
+        boolean ved = false;
+        while ((i < lista.size()) && (ved == false)) {
+            if (lista.get(i).getCod().equals(codigo)) {
+                ved = true;
+            } else {
+                i++;
+            }
+        }
+        if (ved == true) {
+            JOptionPane.showMessageDialog(null, "El producto no ha podido guardarse\n "
+                    + "debido a que ya existe");
+        } else {
+
+            switch (OP) {
+                case 1:
+                    Articulo productoP = new ProductoP(codigo, nombre, precio, peso);
+                    archivo.guardar(productoP);
+                    JOptionPane.showMessageDialog(null, "Producto registrado satisfactoriamente");
+                    break;
+                case 2:
+                    Articulo productoU = new ProductoU(codigo, nombre, precio, (int) peso);
+                    archivo.guardar(productoU);
+                    JOptionPane.showMessageDialog(null, "Producto registrado satisfactoriamente");
+                    break;
+            }
+
         }
     }
 
@@ -53,7 +72,8 @@ public class Tienda implements ILibroTienda {
     public ArrayList<Articulo> Informe() throws IOException {
 
         if (!archivo.verificar()) {
-            JOptionPane.showMessageDialog(null, "NO SEA GUARDADO NINGUN ARTICULO");
+            JOptionPane.showMessageDialog(null, "No hay ningun articulo registrado hasta el momento. \n"
+                    + "Por favor, dirigase a la opción REGISTRAR PRODUCTO");
             return null;
         } else {
             ArrayList<Articulo> lista = archivo.Informar();
@@ -101,7 +121,7 @@ public class Tienda implements ILibroTienda {
         ArrayList<Articulo> lista = archivo.Informar();
 
         while (i < lista.size() && seguir == false) {
-            if (lista.get(i).getCod() == cod) {
+            if (lista.get(i).getCod().equals(cod)) {
                 seguir = true;
             } else {
                 i++;
