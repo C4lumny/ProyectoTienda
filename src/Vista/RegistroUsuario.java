@@ -1,14 +1,19 @@
-
 package Vista;
 
+import Usuario.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-public class RegistrouUsuario extends javax.swing.JFrame {
+public class RegistroUsuario extends javax.swing.JFrame {
 
+    String pass = "";
+    String userName;
+    char[] password;
+    String storeName;
+    userFile archivo = new userFile();
 
-    public RegistrouUsuario() {
+    public RegistroUsuario() {
         initComponents();
     }
 
@@ -20,14 +25,14 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JPasswordField();
-        txtUsuario = new javax.swing.JTextField();
-        BtnSesion1 = new javax.swing.JButton();
+        txtNombreTienda = new javax.swing.JTextField();
+        BtnRegistrar = new javax.swing.JButton();
         jLabel43 = new javax.swing.JLabel();
-        txtContraseña1 = new javax.swing.JPasswordField();
+        txtContraseña = new javax.swing.JPasswordField();
         jLabel40 = new javax.swing.JLabel();
+        txtUsuario1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -45,30 +50,28 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel39.setText("Contraseña:");
 
-        txtContraseña.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
-        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreTienda.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        txtNombreTienda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraseñaActionPerformed(evt);
+                txtNombreTiendaActionPerformed(evt);
             }
         });
 
-        txtUsuario.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
+        BtnRegistrar.setBackground(new java.awt.Color(255, 102, 102));
+        BtnRegistrar.setFont(new java.awt.Font("Open Sans Semibold", 0, 14)); // NOI18N
+        BtnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnRegistrar.setText("Registrar ");
+        BtnRegistrar.setBorder(null);
+        BtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnRegistrarMouseClicked(evt);
             }
         });
-
-        BtnSesion1.setBackground(new java.awt.Color(255, 102, 102));
-        BtnSesion1.setFont(new java.awt.Font("Open Sans Semibold", 0, 14)); // NOI18N
-        BtnSesion1.setForeground(new java.awt.Color(255, 255, 255));
-        BtnSesion1.setText("Registrar ");
-        BtnSesion1.setBorder(null);
-        BtnSesion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnSesion1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnSesion1.addActionListener(new java.awt.event.ActionListener() {
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSesion1ActionPerformed(evt);
+                BtnRegistrarActionPerformed(evt);
             }
         });
 
@@ -77,10 +80,10 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         jLabel43.setForeground(new java.awt.Color(235, 79, 97));
         jLabel43.setText("Registrar usuario");
 
-        txtContraseña1.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
-        txtContraseña1.addActionListener(new java.awt.event.ActionListener() {
+        txtContraseña.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraseña1ActionPerformed(evt);
+                txtContraseñaActionPerformed(evt);
             }
         });
 
@@ -89,6 +92,13 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         jLabel40.setForeground(new java.awt.Color(199, 78, 126));
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel40.setText("Nombre de la tienda: ");
+
+        txtUsuario1.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        txtUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuario1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,13 +111,13 @@ public class RegistrouUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(139, 139, 139)
-                        .addComponent(BtnSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel43))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 72, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,9 +125,9 @@ public class RegistrouUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel39, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreTienda, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,17 +140,17 @@ public class RegistrouUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
-                    .addComponent(txtContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreTienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(BtnSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
 
@@ -159,23 +169,44 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtNombreTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreTiendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreTiendaActionPerformed
+
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+
+        try {
+
+            userName = txtUsuario1.getText();
+            password = txtContraseña.getPassword();
+            for (int i = 0; i < password.length; i++) {
+                pass += password[i];
+            }
+            storeName = txtNombreTienda.getText();
+            Admin admin = new Admin(userName, pass, storeName);
+            archivo.registrar(admin);
+            System.out.println(archivo.leer());
+        } catch (IOException IOE) {
+        }
+        JOptionPane.showMessageDialog(null, "Su usuario ha sido guardado satisfactoriamente");
+
+        Login login = new Login();
+        this.dispose();
+        login.setVisible(true);
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
+
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+    private void txtUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuario1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    }//GEN-LAST:event_txtUsuario1ActionPerformed
 
-    private void BtnSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSesion1ActionPerformed
-        GUImenu gui = new GUImenu();
-        this.dispose();
-        gui.setVisible(true);
-    }//GEN-LAST:event_BtnSesion1ActionPerformed
+    private void BtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnRegistrarMouseClicked
 
-    private void txtContraseña1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseña1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraseña1ActionPerformed
+
+    }//GEN-LAST:event_BtnRegistrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,13 +225,13 @@ public class RegistrouUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrouUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrouUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrouUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrouUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -214,16 +245,15 @@ public class RegistrouUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                new RegistrouUsuario().setVisible(true);
+
+                new RegistroUsuario().setVisible(true);
             }
         });
-        
-   
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnSesion1;
+    private javax.swing.JButton BtnRegistrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -231,7 +261,7 @@ public class RegistrouUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JPasswordField txtContraseña;
-    public javax.swing.JPasswordField txtContraseña1;
-    public javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtNombreTienda;
+    public javax.swing.JTextField txtUsuario1;
     // End of variables declaration//GEN-END:variables
 }

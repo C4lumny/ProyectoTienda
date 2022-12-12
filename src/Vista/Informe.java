@@ -31,6 +31,7 @@ public class Informe extends javax.swing.JFrame {
         JtableVentas.addColumn("Precio de compra");
         JtableVentas.addColumn("Cantidad existente");
         JtableVentas.addColumn("Ganancia ($)");
+        JtableVentas.addColumn("Pérdida (-$)");
 
     }
 
@@ -55,7 +56,7 @@ public class Informe extends javax.swing.JFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(800, 600));

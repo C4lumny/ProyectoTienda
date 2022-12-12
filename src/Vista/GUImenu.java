@@ -4,10 +4,21 @@
  */
 package Vista;
 
+import Usuario.Admin;
+import Usuario.userFile;
+import java.io.IOException;
+
 public class GUImenu extends javax.swing.JFrame {
 
     public GUImenu() {
         initComponents();
+        try {
+            userFile archivo = new userFile();
+            Admin user = archivo.leer();
+            lblNombreTienda.setText("Tienda " + user.getStoreName());
+        }catch(IOException IOE){
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -23,8 +34,9 @@ public class GUImenu extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        lblNombreTienda = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -72,15 +84,20 @@ public class GUImenu extends javax.swing.JFrame {
             }
         });
 
+        lblNombreTienda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNombreTienda.setForeground(new java.awt.Color(235, 79, 97));
+        lblNombreTienda.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreTienda)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
@@ -91,7 +108,9 @@ public class GUImenu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(38, 38, 38)
+                .addComponent(lblNombreTienda)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,5 +247,6 @@ public class GUImenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblNombreTienda;
     // End of variables declaration//GEN-END:variables
 }
